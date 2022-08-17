@@ -5,8 +5,8 @@ class User {
     this.books = books;
     this.pets = pets;
   }
-  getFullName(name, lastName){
-    return `Full name: ${this.name} ${this.lastName}`;
+  getFullName(){
+     return console.log(`Full name: ${this.name} ${this.lastName}`)
   }
   addPet(newPet){
     this.pets.push(newPet);
@@ -17,7 +17,7 @@ class User {
   addBook(name, author){
     this.books.push({name, author});
   }
-  getBooks(){
+  getBookNames(){
     return this.books.map(({name}) => name);
   }
 }
@@ -45,4 +45,4 @@ console.log(user);
 //Count number of pets
 console.log(`Number of pets: ${user.countPets()}`)
 //Return name of books
-console.log(user.getBooks())
+console.log(user.getBookNames())
