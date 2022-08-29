@@ -11,8 +11,6 @@ class baseDeDatos {
 
   //*  crear usuario
   async createUser(objUser) {
-    // paso1
-    // * { nombre: "eduardo", correo: "hola@google.com" }
     const data = await fs.promises.readFile(
       `${this.archivo}/usuarios.json`,
       "utf-8"
@@ -59,7 +57,7 @@ class baseDeDatos {
     if (usuario) {
       return usuario;
     } else {
-      return "Usuario no encontrado";
+      throw new Error("Usuario no encontrado");
     }
   }
 
@@ -79,42 +77,6 @@ class baseDeDatos {
       return "Usuario no encontrado";
     }
   }
-  async deleteById(idEntered) {
-    // ? Elimina del archivo el objeto con el Id buscado
-
-    const dataToParse = await fs.readFileSync(this.archivo, "utf-8");
-    const dataParsed = JSON.parse(dataToParse);
-    // * Se filtran los productos que no cumplen las condiciones (coincidir con el id proporcionado)
-    const leakedID = dataParsed.filter(({ id }) => id !== idEntered);
-    // * Encuentra el producto con el id proporcionado
-    const idFound = dataParsed.find(({ id }) => id === idEntered);
-
-    try {
-      if (idFound) {
-        
-        );
-        // * Se actualiza el archivo
-        const updatedFile = JSON.stringify(leakedID, null, " ");
-        fs.writeFileSync(this.file, updatedFile);
-      } else {
-        console.log(`No se ha encontrado el objeto con id: ${idEntered}`);
-      }
-    } catch (error) {
-      console.error(`Se ha producido un error en deleteById: ${error}`);
-    }
-  }
-
-  async deleteAll() {
-    // ? Elimina todos los objetos presentes en el archivo
-    try {
-      console.log("Todos los objetos fueron eliminados");
-      // * Borrado de todos los objetos (Se sobreescribe el archivo a un array vacío)
-      await fs.writeFileSync(this.file, "[]");
-    } catch (error) {
-      console.error(`Se ha producido un error en deleteAll: ${error}`);
-    }
-  }
-}
 
   // * dar like
 
@@ -177,12 +139,10 @@ class baseDeDatos {
 }
 async function start() {
   const db = new baseDeDatos("data");
-  // db.createUser({ nombre: "eduardo", correo: "hola@google.com" });
+  await db.createUser({ nombre: "eduardo", correo: "hola@google.com" });
   //   const users = await db.getAllUsers();
   //   console.log(users);
-  const usuario = await db.likePage(1, 5);
-  console.log(usuario);
+  // const usuario = await db.likePage(1, 5);
+  //  console.log(usuario);
 }
-
-start();
-
+module.exports = baseDeDatos;
