@@ -2,29 +2,22 @@ const express = require("express");
 const db = require("./db.js");
 const app = express();
 
-// middleware https://expressjs.com/es/api.html#express.urlencoded
 app.use(express.urlencoded());
-// middleware https://expressjs.com/es/api.html#express.json
 app.use(express.json());
 //* request/ response
 const DB = new db("data");
 
-// root = no hay problema
 app.get("/", (req, res) => {
-  res.send({ error: false });
+  res.send("<h1 style='color:red'>HOLA MUNDO</h1>");
 });
 
-//getAll
-app.get("/usuarios", async (req, res) => {
+app.get("/producto", async (req, res) => {
   const data = await DB.getAllUsers();
   return res.send(data);
 });
 
-//getById
-// queries
-// * GET ?id=10
 
-app.get("/usuario", async (req, res) => {
+app.get("/producto", async (req, res) => {
   const { id } = req.query;
   try {
     const data = await DB.getUserById(id);
@@ -34,12 +27,20 @@ app.get("/usuario", async (req, res) => {
     return res.status(404).send({ error: true, msg: e.message });
   }
 });
+app.get("/productoRandom", async (req, res) => {
+  
+let randomNum = Math.floor(Math.random() * 9 + 1);
+let data = await contenedor.getById(randomNum);
+data === null
+  ? res.send(`<h4>ID:${randomNum} >> [[ERROR]] No se ha encontrado el producto</h4>`)
+  : res.json(data);
+});
 
-app.post("/usuario", async (req, res) => {
-  const { nombre, correo } = req.body;
+app.post("/producto", async (req, res) => {
+  const { producto } = req.body;
 
-  const data = await DB.createUser({ nombre, correo });
-  return res.send({ error: false, msg: "Usuario creado" });
+  const data = await DB.createUser({ producto });
+  return res.send({ error: false, msg: "Producto creado" });
 });
 
 app.listen(8080, () => {
