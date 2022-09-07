@@ -10,9 +10,9 @@ class baseDeDatos {
   // ? Usuario
 
   //*  crear usuario
-  async createUser(objUser) {
+  async save(objUser) {
     const data = await fs.promises.readFile(
-      `${this.archivo}/usuarios.json`,
+      `${this.archivo}/products.json`,
       "utf-8"
     );
     const usuarios = JSON.parse(data);
@@ -24,7 +24,7 @@ class baseDeDatos {
     usuarios.push(objUser);
     const usuariosString = JSON.stringify(usuarios);
     await fs.promises.writeFile(
-      `${this.archivo}/usuarios.json`,
+      `${this.archivo}/products.json`,
       usuariosString
     );
 
@@ -36,7 +36,7 @@ class baseDeDatos {
   async getAllUsers() {
     try {
       const data = await fs.promises.readFile(
-        `${this.archivo}/usuarios.json`,
+        `${this.archivo}/products.json`,
         "utf-8"
       );
       return JSON.parse(data);
@@ -49,7 +49,7 @@ class baseDeDatos {
   //                parametro
   async getUserById(id) {
     const data = await fs.promises.readFile(
-      `${this.archivo}/usuarios.json`,
+      `${this.archivo}/products.json`,
       "utf-8"
     );
     const usuarios = JSON.parse(data);
@@ -66,7 +66,7 @@ class baseDeDatos {
     // const user = await this.getUserById(id)
 
     const data = await fs.promises.readFile(
-      `${this.archivo}/usuarios.json`,
+      `${this.archivo}/products.json`,
       "utf-8"
     );
     const usuarios = JSON.parse(data);
@@ -95,7 +95,7 @@ class baseDeDatos {
       });
       const dataString = JSON.stringify(dataAct);
 
-      await fs.promises.writeFile(`${this.archivo}/usuarios.json`, dataString);
+      await fs.promises.writeFile(`${this.archivo}/products.json`, dataString);
 
       return dataAct;
     } catch (e) {
