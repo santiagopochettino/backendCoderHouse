@@ -107,7 +107,6 @@ class Container {
   }
 
   async deleteAll() {
-
     try {
       console.log("Todos los objetos fueron eliminados");
       await fs.promises.writeFile(this.file, "[]");
