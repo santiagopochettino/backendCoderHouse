@@ -1,22 +1,27 @@
+//! CONTENEDOR /////////////////////////////////
 const Container = require("../models/Container");
 const contenedor = new Container("products.json");
+//! CONTENEDOR /////////////////////////////////
 const controller = {};
 
 controller.getAll = async (req, res) => {
+  //* DEVUELVE TODOS LOS PRODUCTOS
   const data = await contenedor.getAll();
   res.status(200).render("products", { products: data });
 };
 
 controller.getById = async (req, res) => {
+  //* DEVUELVE UN PRODUCTO SEGÚN SU ID
   const data = await contenedor.getById(req.params.id);
 
-
+  //! Si el id generado no coincide con ningún producto, devuelve null; de lo contrario, envía la información solicitada
   data
     ? res.status(200).json(data)
     : res.status(404).json({ error: "Producto no encontrado" });
 };
 
 controller.post = async (req, res) => {
+  //* RECIBE Y AGREGA UN PRODUCTO, Y LO DEVUELVE CON SU ID ASIGNADO
   const { title, price, thumbnail } = req.body;
   const data = await contenedor.save({ title, price, thumbnail });
   data == null
@@ -25,6 +30,7 @@ controller.post = async (req, res) => {
 };
 
 controller.put = async (req, res) => {
+  //* RECIBE Y ACTUALIZA UN PRODUCTO SEGÚN SU ID
   const { id } = req.params;
   const newObject = req.body;
   const data = await contenedor.update(+id, newObject);
@@ -35,6 +41,7 @@ controller.put = async (req, res) => {
 };
 
 controller.delete = async (req, res) => {
+  //* ELIMINA UN PRODUCTO SEGÚN SU ID
   const data = await contenedor.deleteById(req.params.id);
   data
     ? res

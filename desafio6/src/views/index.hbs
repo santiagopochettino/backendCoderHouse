@@ -1,21 +1,41 @@
-{{!-- {{>nav}} --}}
-
 <main>
   <div>
     <h1>SERVIDOR EXPRESS - FORMULARIO EN HBS</h1>
     <br />
   </div>
-  <form action="/api/products" method="post">
-    <div class="inputContainer">
-      <input type="text" name="title" placeholder="Title" />
-      <br /><br />
-      <input type="number" name="price" placeholder="Price" />
-      <br /><br />
-      <input type="text" name="thumbnail" placeholder="product URL" />
-      <br /><br />
-    </div>
-    <div class="buttonContainer">
-      <input type="submit" value="Guardar datos en servidor" />
+  <form class="form" id="products-form" action="api/products" method="POST">
+    <h2 class="form-title">Ingresar productos</h2>
+    <p class="form-paragraph">
+      Websockets
+      <a
+        href="https://github.com/felipepardo90/new-Backend.git"
+        target="_blank"
+        class="form-link"
+      >Ver repo</a>
+    </p>
+    <div class="form-container">
+      <div class="form-group">
+        <input type="text" name="title" class="form-input" placeholder=" " />
+        <label for="title" class="form-label">Title:</label>
+        <span class="form-line"></span>
+      </div>
+      <div class="form-group">
+        <input type="number" name="price" class="form-input" placeholder=" " />
+        <label for="price" class="form-label">Price:</label>
+        <span class="form-line"></span>
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          name="thumbnail"
+          class="form-input"
+          placeholder=" "
+        />
+        <label for="thumbnail" class="form-label">Thumbnail:</label>
+        <span class="form-line"></span>
+      </div>
+
+      <input type="submit" class="form-submit" value="Ingresar" />
     </div>
   </form>
 </main>
